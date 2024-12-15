@@ -33,7 +33,7 @@ questions and perform tasks. If you need to use a tool, respond with a JSON cont
 
         while True:
             try:
-                user_prompt = input("\nEnter your prompt (or 'quit' to exit): ")
+                user_prompt = input("\nEnter your prompt (or 'quit' to exit): ").strip()
                 if user_prompt.lower() in ['quit', 'exit', 'q']:
                     break
 
