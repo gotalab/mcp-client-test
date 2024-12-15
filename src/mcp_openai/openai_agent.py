@@ -103,14 +103,7 @@ class OpenAIAgent:
                 arguments = json.loads(arguments_str)
                 tool_use_id = call.id
 
-                # payload = {
-                #     "toolUseId": tool_use_id,
-                #     "name": func_name,
-                #     "input": arguments
-                # }
-
-                # ツール実行
-                # tool_result = await self.tools.execute_tool(payload)
+                # MCPサーバ上のツールを実行
                 tool_result = await self.tools.execute_tool(func_name, arguments)
                 # ツール結果をtoolロールメッセージとして履歴にコミット
                 function_call_result_message = {
@@ -118,7 +111,6 @@ class OpenAIAgent:
                     "content": json.dumps(tool_result),
                     "tool_call_id": tool_use_id
                 }
-                print(function_call_result_message)
                 self.messages.append(function_call_result_message)
 
             # ツール使用結果を反映させるため再度モデルに問い合わせ

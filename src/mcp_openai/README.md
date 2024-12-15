@@ -29,38 +29,31 @@ src/test_mcp_openai/
 - OpenAI API key
 - uv package manager
 
-## Installation
+## Usage
+0. Create test MCP server:
+The following link provides a quickstart guide:
+https://modelcontextprotocol.io/quickstart
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/test-mcp-openai.git
-cd test-mcp-openai
+git clone https://github.com/yourusername/mcp-client-test.git
+cd mcp-client-test
 ```
 
-2. Create and activate a virtual environment:
+2. Create and activate a virtual environment, and install dependencies using uv:
 ```bash
-uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv sync
 ```
 
-3. Install dependencies using uv:
-```bash
-uv pip install -r pyproject.toml
-```
-
-4. Set up environment variables:
+3. Set up environment variables:
 Create a `.env` file in the root directory with:
 ```
 OPENAI_API_KEY=your_api_key_here
 ```
 
-## Usage
-
-1. Configure your OpenAI API key in the `.env` file
-
-2. Run the application:
+4. Run the application:
 ```bash
-python -m src.test_mcp_openai.run
+uv run src/mcp_openai/run.p
 ```
 
 ## Configuration

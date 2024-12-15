@@ -15,20 +15,6 @@ class OpenAIToolManager:
         """
         ツールを登録する。
         input_schema: JSON Schema形式のproperties定義
-        
-        例:
-        input_properties = {
-            "location": {
-                "type": "string",
-                "description": "The city and state, e.g., San Francisco, CA"
-            },
-            "unit": {
-                "type": "string",
-                "enum": ["Celsius", "Fahrenheit"],
-                "description": "The temperature unit"
-            }
-        }
-        required_fields = ["location", "unit"]
         """
         
         sanitized_name = self._sanitize_name(name)
@@ -64,15 +50,15 @@ class OpenAIToolManager:
         MCPサーバ上のツールを実行。
         """
         if tool_name not in self._tools:
-            return {"error": f"Unknown tool: {tool_name}"}
+            return {"call": tool_name, "result": f"Unknown tool: {tool_name}"}
 
         try:
             original_name = self._tools[tool_name]['original_name']
             tool_func = self._tools[tool_name]['function']
             result = await tool_func(original_name, arguments)  # mcp_client.call_toolを想定
-            return {"content": str(result)}
+            return {"call": tool_name, "result": str(result)}
         except Exception as e:
-            return {"content": f"Error executing tool: {str(e)}"}
+            return {"call": tool_name, "result": f"Error executing tool: {str(e)}"}
 
     def clear_tools(self):
         self._tools.clear()
